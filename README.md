@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# Project Management Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Welcome to the Project Management Dashboard App! This React application allows users to create and manage Projects.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Hosted Link](#hosted-link)
+- [Screenshots](#screenshots)
+- [Project Structure](#project-structure)
+- [Dependencies](#dependencies)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Explore Project Management Dashboard App
+- User Authentication (Login,Register and Logout)
+- Create,Delete,Update,Filter and Search Projects.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Clone the repository:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   git clone https://github.com/sonukumar77/project-management-dashboard.git
 
-### `npm run build`
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Navigate to the project folder:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   cd project-management-dashboard
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```
 
-### `npm run eject`
+3. Install dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Usage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Start the development server::
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   npm run start
 
-## Learn More
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Open your browser and visit http://localhost:3000.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Explore the Project Management Dashboard App!
 
-### Code Splitting
+## Hosted Link
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Visit the hosted application: [Project Management Dashboard](https://project-mngmnt-dashboard.netlify.app/)
 
-### Analyzing the Bundle Size
+## Screenshots
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![image](https://github.com/sonukumar77/project-management-dashboard/blob/main/src/assets/images/dash.png)
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![image](https://github.com/sonukumar77/project-management-dashboard/blob/main/src/assets/images/login.png)
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![image](https://github.com/sonukumar77/project-management-dashboard/blob/main/src/assets/images/register.png)
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+![image](https://github.com/sonukumar77/project-management-dashboard/blob/main/src/assets/images/add-project.png)
 
-### `npm run build` fails to minify
+## Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `/src`: Contains the source code for the React Js application.
+- `/src/components`: React components.
+- `/src/components/base`: Reusable React components.
+- `/src/components/icons`: Reusable React Icons components.
+- `/src/Pages`: Top-level pages of the application.
+- `/src/utils`: Utility functions.
+- `/src/constants.js`: For constants data.
+- `/src/redux`: Redux Setup for the state management for entire App at a global place.
+- `/src/assets`: Images,icons and other assets.
+
+## Dependencies
+
+- React Js
+- React-Router-Dom,Redux
+- Other dependencies based on your specific components and features
