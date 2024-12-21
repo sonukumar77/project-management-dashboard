@@ -59,19 +59,19 @@ Visit the hosted application: [Project Management Dashboard](https://project-mng
 
 ## Screenshots
 
-![image](https://github.com/sonukumar77/project-management-dashboard/blob/main/src/assets/images/dash.png)
+![image](https://github.com/sonukumar77/project-management-dashboard/blob/master/src/assests/images/dash.png)
 
 ---
 
-![image](https://github.com/sonukumar77/project-management-dashboard/blob/main/src/assets/images/login.png)
+![image](https://github.com/sonukumar77/project-management-dashboard/blob/master/src/assets/images/login.png)
 
 ---
 
-![image](https://github.com/sonukumar77/project-management-dashboard/blob/main/src/assets/images/register.png)
+![image](https://github.com/sonukumar77/project-management-dashboard/blob/master/src/assets/images/register.png)
 
 ---
 
-![image](https://github.com/sonukumar77/project-management-dashboard/blob/main/src/assets/images/add-project.png)
+![image](https://github.com/sonukumar77/project-management-dashboard/blob/master/src/assets/images/add-project.png)
 
 ## Project Structure
 
