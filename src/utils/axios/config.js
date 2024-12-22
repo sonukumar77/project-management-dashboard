@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Created an Axios instance
 const axiosInstance = axios.create({
-  baseURL: "https://dummy-jwt-api.vercel.app",
+  baseURL: "https://dummyjson.com/",
   timeout: 5000, // Optional: Request timeout in milliseconds
   headers: {
     "Content-Type": "application/json",
@@ -10,24 +10,10 @@ const axiosInstance = axios.create({
   },
 });
 
-// Example for CORS configuration on server-side (Express.js)
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header(
-//       "Access-Control-Allow-Headers",
-//       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//     );
-//     if (req.method === "OPTIONS") {
-//       res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-//       return res.status(200).json({});
-//     }
-//     next();
-//   });
-
 axiosInstance.interceptors.request.use(
   (config) => {
     // Add JWT token to headers if available
-    const token = config.token || localStorage.getItem("accessToken");
+    const token = config.token;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

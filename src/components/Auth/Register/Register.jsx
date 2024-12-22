@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { LOGIN_ASIDE_IMAGE_URL } from "../../../constants/common";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import axiosInstance from "../../../utils/axios/config";
 import InputBox from "../../base/InputBox/InputBox";
@@ -14,7 +14,7 @@ const Register = () => {
 
   const registerData = async () => {
     try {
-      const res = await axiosInstance.post("/register", {
+      const res = await axiosInstance.post("auth/register", {
         username: "sonu12345",
         password: "12345",
       });
@@ -24,6 +24,22 @@ const Register = () => {
       console.log("error:", err);
     }
   };
+
+  useEffect(() => {
+    fetch("https://dummyjson.com/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: "emilys",
+        password: "emilyspass",
+        expiresInMins: 30, // optional, defaults to 60
+      }),
+      credentials: "include", // Include cookies (e.g., accessToken) in the request
+    })
+      .then((res) => res.json())
+      .then("op==>", console.log)
+      .catch((err) => console.log("err=>", err));
+  }, []);
 
   const handleRegister = () => {
     console.log(userName, password);
