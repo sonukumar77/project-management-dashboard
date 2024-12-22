@@ -4,3 +4,9 @@ export const AuthAction = (accessToken) => {
     payload: accessToken,
   };
 };
+
+export const LogoutAction = () => {
+  return {
+    type: "LOGOUT",
+  };
+};

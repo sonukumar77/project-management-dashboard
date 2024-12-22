@@ -7,7 +7,6 @@ import {
   DASHBOARD_TITLE,
   INITIAL_PROJECT_DATA,
   PROJECT_MANAGEMENT_LIST,
-  PROJECT_STATUS,
 } from "../../constants/common";
 import { useState } from "react";
 import TableRow from "../base/TableRow/TableRow";
@@ -16,7 +15,9 @@ import Button from "../base/Button/Button";
 import TableHead from "../base/TableHead/TableHead";
 import Footer from "../Footer/Footer";
 import Modal from "../base/Modal/Modal";
-import InputBox from "../base/InputBox/InputBox";
+import { addProjectForm, viewProject } from "../../utils/dashboard/dashboard";
+import { useDispatch } from "react-redux";
+import { LogoutAction } from "../../redux/actions/AuthAction";
 
 const Dashboard = () => {
   const [selectedMenu, setSelectedMenu] = useState(1);
@@ -24,13 +25,15 @@ const Dashboard = () => {
   const [selecetedProject, setSelectedProject] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [input, setInput] = useState(INITIAL_PROJECT_DATA);
-
   const [projectList, setProjectList] = useState(() => PROJECT_MANAGEMENT_LIST);
+
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     setModalType(null);
     setSelectedProject(null);
     setIsModalOpen(false);
+    setInput(INITIAL_PROJECT_DATA);
   };
 
   const handleOpenModal = (type, project = null) => {
@@ -52,7 +55,10 @@ const Dashboard = () => {
   };
 
   const createProject = () => {
-    setProjectList((prev) => [...prev, input]);
+    setProjectList((prev) => [
+      ...prev,
+      { ...input, id: new Date().getMilliseconds() },
+    ]);
     setInput(INITIAL_PROJECT_DATA);
     setIsModalOpen(false);
   };
@@ -70,6 +76,14 @@ const Dashboard = () => {
   const handleInput = (e, key) => {
     const { value } = e.target;
     setInput((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const onLogOut = () => {
+    const isLOgout = window.confirm("Are you sure to logout?");
+
+    if (isLOgout) {
+      dispatch(LogoutAction());
+    }
   };
 
   const renderFunction = () => {
@@ -113,8 +127,12 @@ const Dashboard = () => {
             {DASHBOARD_ASIDE_MENU.map((item, i) => (
               <ListItem
                 key={item.id}
-                onClick={() => setSelectedMenu(i)}
-                listItemStyle={i === selectedMenu ? "bg-green-500" : ""}
+                onClick={() =>
+                  item.name === "Logout" ? onLogOut() : setSelectedMenu(i)
+                }
+                listItemStyle={`${item.name === "Logout" ? "bg-red-500" : ""} ${
+                  i === selectedMenu ? "bg-green-500" : ""
+                }`}
                 children={<Link>{item.name}</Link>}
               />
             ))}
@@ -209,77 +227,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-const addProjectForm = (handleInput, input) => {
-  return (
-    <>
-      <InputBox
-        type="text"
-        placeholder="Enter Project Name"
-        labelText="Project Name"
-        value={input?.name}
-        onInputChange={(e) => handleInput(e, "name")}
-      />
-      <div className={`p-2 flex flex-col `}>
-        <label className={`mb-[1px]`}>Start Date</label>
-        <input
-          type="date"
-          placeholder="Enter Start Date"
-          className={`pl-2 p-2 outline-none border border-gray-400 rounded`}
-          onChange={(e) => handleInput(e, "startDate")}
-          value={input?.startDate}
-        />
-      </div>
-      <div className={`p-2 flex flex-col `}>
-        <label className={`mb-[1px]`}>End Date</label>
-        <input
-          type="date"
-          placeholder="Enter End Date"
-          className={`pl-2 p-2 outline-none border border-gray-400 rounded`}
-          onChange={(e) => handleInput(e, "endDate")}
-          value={input?.endDate}
-        />
-      </div>
-      <div className={`p-2 flex flex-col `}>
-        <label className={`mb-[1px]`}>Status</label>
-        <select
-          className={`pl-2 p-2 outline-none border border-gray-400 rounded`}
-          value={input?.status}
-          onChange={(e) => handleInput(e, "status")}
-        >
-          <option value="">--select--</option>
-          {PROJECT_STATUS.map((status, i) => (
-            <option key={i} value={status}>
-              {status}
-            </option>
-          ))}
-        </select>
-      </div>
-    </>
-  );
-};
-
-const viewProject = (project) => {
-  return (
-    <>
-      <div>
-        <div className="flex justify-between items-center">
-          <p>
-            <b>Name</b> : {project.name}
-          </p>
-          <p>
-            <b>Start Date</b> : {project.startDate}
-          </p>
-        </div>
-        <div className="flex justify-between items-center">
-          <p>
-            <b>End Date</b> : {project.endDate}
-          </p>
-          <p>
-            <b>Status</b> : {project.status}
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};

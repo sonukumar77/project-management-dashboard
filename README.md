@@ -8,6 +8,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Hosted Link](#hosted-link)
+- [Test Project](#test-project)
 - [Screenshots](#screenshots)
 - [Project Structure](#project-structure)
 - [Dependencies](#dependencies)
@@ -57,9 +58,27 @@
 
 Visit the hosted application: [Project Management Dashboard](https://project-mngmnt-dashboard.netlify.app/)
 
+## Test Project
+
+- Use the following test credentials for login and registration:
+
+  1.Login
+
+  ```bash
+  Email : eve.holt@reqres.in
+  Password : anypassword (password is ignored by the API, but it's required)
+  ```
+
+  2.Register
+
+  ```bash
+  Email : eve.holt@reqres.in
+  Password : anypassword
+  ```
+
 ## Screenshots
 
-![image](https://github.com/sonukumar77/project-management-dashboard/blob/master/src/assests/images/dash.png)
+![image](https://github.com/sonukumar77/project-management-dashboard/blob/master/src/assets/images/dash.png)
 
 ---
 
@@ -88,5 +107,5 @@ Visit the hosted application: [Project Management Dashboard](https://project-mng
 ## Dependencies
 
 - React Js
-- React-Router-Dom,Redux
+- React-Router-Dom,Redux,Axios
 - Other dependencies based on your specific components and features

@@ -1,48 +1,62 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LOGIN_ASIDE_IMAGE_URL } from "../../../constants/common";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import axiosInstance from "../../../utils/axios/config.js";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import InputBox from "../../base/InputBox/InputBox.jsx";
 import Button from "../../base/Button/Button.jsx";
 import LazyImage from "../../base/LazyImage/LazyImage.jsx";
+import { AuthAction } from "../../../redux/actions/AuthAction.js";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-  const { accessToken } = useSelector((store) => store);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const fetchData = async () => {
+  useEffect(() => {
+    const id = setTimeout(() => {
+      if (error) {
+        setError(null);
+      }
+    }, 5000);
+
+    return () => clearTimeout(id);
+  }, [error]);
+
+  const login = async () => {
     try {
-      const res = await axiosInstance.post(
-        "/login",
-        {
-          username: "sonu12345",
-          password: "12345",
-        },
-        {
-          token: accessToken,
-        }
-      );
+      const res = await axiosInstance.post("/login", {
+        email: userName,
+        password,
+      });
 
-      console.log("res==>", res);
+      dispatch(AuthAction(res?.data?.token));
+      navigate("/");
+      setError(null);
     } catch (err) {
-      console.log("error:", err);
+      if (err?.status === 400 || err?.response?.data?.error) {
+        setError(err?.response?.data?.error);
+      }
     }
+
+    setUserName("");
+    setPassword("");
   };
 
   const handleLogin = () => {
     if (userName === "" || password === "") {
-      return "This field is required!";
+      setError("All field are required!");
+      return;
     }
-    fetchData();
-    console.log(userName, password);
+    login();
   };
   return (
     <section className="w-full h-screen flex justify-center items-center">
-      <div className="h-[80%] w-[80%] flex flex-wrap  rounded-lg shadow-lg">
+      <div className="h-[80%] w-[80%] flex flex-wrap rounded-lg shadow-lg">
         {/* left image */}
         <div className="w-1/2 h-full">
           <LazyImage
@@ -78,7 +92,7 @@ const Login = () => {
                 onClick={handleLogin}
               />
             </div>
-
+            {error && <p className="mt-2 text-red-500">{error}</p>}
             <div className="mt-4">
               <p>
                 New User ?{" "}

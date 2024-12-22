@@ -41,7 +41,6 @@ export const PROJECT_MANAGEMENT_LIST = [
 
 export const PROJECT_STATUS = ["Not Started", "In Progress", "Completed"];
 export const INITIAL_PROJECT_DATA = {
-  id: new Date().getMilliseconds(),
   name: "",
   startDate: "",
   endDate: "",

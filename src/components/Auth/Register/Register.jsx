@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LOGIN_ASIDE_IMAGE_URL } from "../../../constants/common";
 import { useEffect, useState } from "react";
 
@@ -11,47 +11,58 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
 
-  const registerData = async () => {
-    try {
-      const res = await axiosInstance.post("auth/register", {
-        username: "sonu12345",
-        password: "12345",
-      });
-
-      console.log("res==>", res);
-    } catch (err) {
-      console.log("error:", err);
-    }
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://dummyjson.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: "emilys",
-        password: "emilyspass",
-        expiresInMins: 30, // optional, defaults to 60
-      }),
-      credentials: "include", // Include cookies (e.g., accessToken) in the request
-    })
-      .then((res) => res.json())
-      .then("op==>", console.log)
-      .catch((err) => console.log("err=>", err));
-  }, []);
+    const id = setTimeout(() => {
+      if (error) {
+        setError(null);
+      }
+
+      if (message) {
+        navigate("/login");
+        setMessage(null);
+      }
+    }, 5000);
+
+    return () => clearTimeout(id);
+  }, [error, message, navigate]);
+
+  const register = async () => {
+    try {
+      const response = await axiosInstance.post("/register", {
+        email: userName,
+        password,
+      });
+      if (response.status === 200) {
+        setError(null);
+        setMessage(`Registration successful!`);
+      }
+    } catch (err) {
+      if (err?.status === 400 || err?.response?.data?.error) {
+        setError(err?.response?.data?.error);
+      }
+    }
+
+    setUserName("");
+    setPassword("");
+    setConfirmPassword("");
+  };
 
   const handleRegister = () => {
-    console.log(userName, password);
-
     if (userName === "" || password === "" || confirmPassword === "") {
-      return "This field is reqired!";
+      setError("All field are reqired!");
+      return;
     }
     if (password !== confirmPassword) {
-      return "Password and Confirm Password should be same!";
+      setError("Password and Confirm Password should be same!");
+      return;
     }
 
-    registerData();
+    register();
   };
 
   return (
@@ -101,6 +112,9 @@ const Register = () => {
                   onClick={handleRegister}
                 />
               </div>
+
+              {message && <p className="mt-2 text-green-500">{message}</p>}
+              {error && <p className="mt-2 text-red-500">{error}</p>}
 
               <div className="mt-4">
                 <p>
