@@ -20,14 +20,17 @@ import { useDispatch } from "react-redux";
 import { LogoutAction } from "../../redux/actions/AuthAction";
 
 const Dashboard = () => {
-  const [selectedMenu, setSelectedMenu] = useState(1);
+  const [selectedMenu, setSelectedMenu] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selecetedProject, setSelectedProject] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [input, setInput] = useState(INITIAL_PROJECT_DATA);
   const [projectList, setProjectList] = useState(() => PROJECT_MANAGEMENT_LIST);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const dispatch = useDispatch();
+
+  const onThemeToggle = () => setIsDarkMode((prev) => !prev);
 
   const handleCloseModal = () => {
     setModalType(null);
@@ -120,8 +123,16 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="w-full min-h-screen max-h-content flex">
-        <aside className="w-1/5 bg-black text-white p-4">
+      <div
+        className={`w-full min-h-screen max-h-content flex ${
+          isDarkMode ? "bg-black text-white" : "bg-white text-black"
+        }`}
+      >
+        <aside
+          className={`w-1/5 p-4 ${
+            isDarkMode ? "bg-white text-black" : "bg-black text-white"
+          }`}
+        >
           <div className="text-2xl">{DASHBOARD_TITLE}</div>
           <ul className="list-none text-lg mt-4">
             {DASHBOARD_ASIDE_MENU.map((item, i) => (
@@ -139,13 +150,20 @@ const Dashboard = () => {
           </ul>
         </aside>
         <section className="w-4/5 ">
-          <nav
-            className="h-[10%] p-4 text-lg font-bold
-          "
-          >
-            Project Management Dashboard
+          <nav className="h-[10%] p-4 text-lg font-bold flex justify-between items-center border-b border-gray-400">
+            <p>Project Management Dashboard</p>
+            <div
+              className="text-xl text-yellow cursor-pointer"
+              onClick={onThemeToggle}
+            >
+              {isDarkMode ? "☀" : "🌙 "}
+            </div>
           </nav>
-          <main className="h-[90%] bg-gray-100 p-4 flex justify-start flex-col">
+          <main
+            className={`h-[90%] p-4 flex justify-start flex-col ${
+              isDarkMode ? "bg-black text-gray-800" : "bg-white text-black"
+            }`}
+          >
             {/* Dashboard Overview */}
             <section className="w-full h-fit flex flex-wrap gap-x-4 gap-y-2 md:gap-y-4">
               {DASHBOARD_OVERVIEW_LIST.map((item) => (
